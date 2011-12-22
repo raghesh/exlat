@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 
 def getListofDictionary(List, EventName):
+  """Get a list of dictionaries. Each dictionary
+     corresponds to a record of a single event
+     with EventName as SUMMARY.
+  """
   EventCount = List.count(EventName)
   EventsList = []
   End = 0
