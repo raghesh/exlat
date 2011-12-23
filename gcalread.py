@@ -8,12 +8,18 @@ def getListofDictionary(List, EventName):
   EventCount = List.count(EventName)
   EventsList = []
   End = 0
-  for EventIndex in range(0, EventCount):
+
+  # Iterate through all the records with SUMMARY = EventName
+  for I in range(0, EventCount):
     Dict = {}
-    Start = List.index(EventName, End)
-    End = List.index('SUMMARY', Start)
-    KeyIndex = Start + 2
-    for Entry in List[Start + 1:End:2]:
+
+    # Get the start and end indices of a single record
+    EventIndex = List.index(EventName, End)
+    Start = EventIndex - (List[EventIndex:0:-1].index('BEGIN'))
+    End = List.index('END', EventIndex)
+    KeyIndex = Start + 1
+
+    for Entry in List[Start:End:2]:
       Dict[Entry] = List[KeyIndex]
       KeyIndex += 2
     EventsList.append(Dict)
