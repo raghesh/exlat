@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import sys
 
 def getListofDictionary(List, EventName):
   """Get a list of dictionaries. Each dictionary
@@ -26,8 +27,14 @@ def getListofDictionary(List, EventName):
 
   return EventsList
 
-F = open("basic.ics")
+if len(sys.argv) != 3:
+  print "Usage: ./gcalread.py <.ics file> <SUMMARY String>"
+  sys.exit(0)
+
+ICSFile = sys.argv[1]
+SummaryString = sys.argv[2]
+F = open(ICSFile)
 Content = F.read()
 NewContent = Content.replace('\r\n', ':')
 List = NewContent.split(':')
-print getListofDictionary(List, 'Compiler Class')
+print getListofDictionary(List, SummaryString)
