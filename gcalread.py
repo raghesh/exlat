@@ -4,7 +4,8 @@ import sys
 def getListofDictionary(List, EventName):
   """Get a list of dictionaries. Each dictionary
      corresponds to a record of a single event
-     with EventName as SUMMARY.
+     with EventName as SUMMARY. Empty list will be
+     returned if EventName is not found.
   """
   EventCount = List.count(EventName)
   EventsList = []
