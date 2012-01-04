@@ -34,8 +34,15 @@ if len(sys.argv) != 3:
 
 ICSFile = sys.argv[1]
 SummaryString = sys.argv[2]
-F = open(ICSFile)
-Content = F.read()
+
+try:
+  F = open(ICSFile)
+  Content = F.read()
+except IOError:
+  print "File Error. Did you enter the correct file name? Enter it again."
+  F = open(raw_input())
+  Content = F.read()
+
 NewContent = Content.replace('\r\n', ':')
 List = NewContent.split(':')
 print getListofDictionary(List, SummaryString)
