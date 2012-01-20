@@ -18,7 +18,7 @@ class ExportToLatex:
     """
     DefaultTemplateString = """\\documentclass[12pt]{article}
              \\begin{document}
-             %data_goes_here
+             %user_data
              \\end{document}"""
 
     return DefaultTemplateString
@@ -26,14 +26,23 @@ class ExportToLatex:
   def getTemplateString(self):
     return self.TemplateString
 
+  def createOutputString(self, UserData):
+    """Function which adds the user data in positions identified by predefined
+       keywords.
+    """
+    self.OutputString = self.TemplateString.replace("%user_data", UserData)
+
+  def getOutputString(self):
+    return self.OutputString
 
 def testExportToLatex():
-  DefaultTemplateString = """\\documentclass[12pt]{article}
+  TestOutputString = """\\documentclass[12pt]{article}
              \\begin{document}
-             %user_data
+             Hello World
              \\end{document}"""
   Obj = ExportToLatex()
-  assert Obj.getTemplateString() == DefaultTemplateString
+  Obj.createOutputString("Hello World")
+  assert Obj.getOutputString() == TestOutputString, "Invalid output string is created"
 
 if __name__ == '__main__':
   testExportToLatex()
