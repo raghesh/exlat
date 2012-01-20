@@ -30,7 +30,7 @@ class ExportToLatex:
 def testExportToLatex():
   DefaultTemplateString = """\\documentclass[12pt]{article}
              \\begin{document}
-             %data_goes_here
+             %user_data
              \\end{document}"""
   Obj = ExportToLatex()
   assert Obj.getTemplateString() == DefaultTemplateString
