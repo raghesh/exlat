@@ -47,8 +47,46 @@ class ExportToLatex:
     LatexFile = open("output.tex", "w")
     LatexFile.write(OutputString)
     LatexFile.close()
+ 
+  def createLatexTable(self, TableList):
+    """Function which creates a latex table. The input to the function is a
+       list of dictionaries. Each dictionary is a record having column names
+       as keys and column values as values.
+    """
+    NumberOfColumns = len(TableList[0])
+    ColumnNames = TableList[0].keys()
+    ColumnNames.reverse()
+    # left justified columns
+    FormatSpecifier = '|l'*NumberOfColumns + "|"
+    # Create table header
+    TableString = "\\begin{tabular}{%s}\n" % (FormatSpecifier)
+    TableString += "\\hline\n"
+    ColumnNumber = 1
+    for ColumnName in ColumnNames:
+      if ColumnNumber != NumberOfColumns:
+        TableString += "%s &" %(ColumnName)
+      else:
+        TableString += "%s \\\\\n" %(ColumnName)
+      ColumnNumber += 1
+
+    # Create Rows
+    for Record in TableList:
+      TableString += "\\hline\n"
+      ColumnNumber = 1
+      for ColumnName in ColumnNames:
+        if ColumnNumber != NumberOfColumns:
+          TableString += "%s &" %(Record[ColumnName])
+        else:
+          TableString += "%s \\\\\n" %(Record[ColumnName])
+        ColumnNumber += 1
+
+    TableString += "\\hline\n"
+    TableString += "\\end{tabular}"
+
+    return TableString
 
 def testExportToLatex():
+  # Test Case 1
   TestOutputString = "\\documentclass[12pt]{article}\n"\
                      "\\begin{document}\n"\
                      "Hello World\n"\
@@ -57,6 +95,17 @@ def testExportToLatex():
   Obj.createOutputString("Hello World")
   assert Obj.getOutputString() == TestOutputString, \
          "Invalid output string is created"
+  Obj.createLatexFile()
+  # Test Case 2
+  TableList = [{'Age': '5', 'Name': 'Jack'}, {'Age': '6', 'Name': 'John'}]
+  TableString = Obj.createLatexTable(TableList)
+  assert TableString == "\\begin{tabular}{|l|l|}\n"\
+                        "\\hline\nName &Age \\\\\n"\
+                        "\\hline\nJack &5 \\\\\n"\
+                        "\\hline\nJohn &6 \\\\\n"\
+                        "\\hline\n"\
+                        "\\end{tabular}"
+  Obj.createOutputString(TableString)
   Obj.createLatexFile()
 
 if __name__ == '__main__':
