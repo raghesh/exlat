@@ -18,10 +18,10 @@ class ExportToLatex:
     """Function which returns the default template string. This is used if the
        user has not provided the template file.
     """
-    DefaultTemplateString = """\\documentclass[12pt]{article}
-             \\begin{document}
-             %user_data
-             \\end{document}"""
+    DefaultTemplateString = "\\documentclass[12pt]{article}\n"\
+                            "\\begin{document}\n"\
+                            "%user_data\n"\
+                            "\\end{document}"
 
     return DefaultTemplateString
 
@@ -49,10 +49,10 @@ class ExportToLatex:
     LatexFile.close()
 
 def testExportToLatex():
-  TestOutputString = """\\documentclass[12pt]{article}
-             \\begin{document}
-             Hello World
-             \\end{document}"""
+  TestOutputString = "\\documentclass[12pt]{article}\n"\
+                     "\\begin{document}\n"\
+                     "Hello World\n"\
+                     "\\end{document}"
   Obj = ExportToLatex()
   Obj.createOutputString("Hello World")
   assert Obj.getOutputString() == TestOutputString, \
