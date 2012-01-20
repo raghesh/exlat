@@ -108,5 +108,8 @@ def testExportToLatex():
   Obj.createOutputString(TableString)
   Obj.createLatexFile()
 
+  # Clearing Memory
+  del Obj
+
 if __name__ == '__main__':
   testExportToLatex()
