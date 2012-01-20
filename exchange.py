@@ -12,6 +12,8 @@ class ExportToLatex:
       self.TemplateString = read(F)
       close(F)
 
+    self.OutputString = ""
+
   def defaultTemplateString(self):
     """Function which returns the default template string. This is used if the
        user has not provided the template file.
@@ -35,6 +37,17 @@ class ExportToLatex:
   def getOutputString(self):
     return self.OutputString
 
+  def createLatexFile(self):
+    """Function which copy the output string to a file which is ready to be
+       compiled by a latex compiler.
+    """
+    OutputString = self.getOutputString()
+    assert OutputString != "", \
+           "Output string empty. You might not have called createOutputString"
+    LatexFile = open("output.tex", "w")
+    LatexFile.write(OutputString)
+    LatexFile.close()
+
 def testExportToLatex():
   TestOutputString = """\\documentclass[12pt]{article}
              \\begin{document}
@@ -42,7 +55,9 @@ def testExportToLatex():
              \\end{document}"""
   Obj = ExportToLatex()
   Obj.createOutputString("Hello World")
-  assert Obj.getOutputString() == TestOutputString, "Invalid output string is created"
+  assert Obj.getOutputString() == TestOutputString, \
+         "Invalid output string is created"
+  Obj.createLatexFile()
 
 if __name__ == '__main__':
   testExportToLatex()
