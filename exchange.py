@@ -53,6 +53,11 @@ class ExportToLatex:
        list of dictionaries. Each dictionary is a record having column names
        as keys and column values as values.
     """
+    # TODO: The input datastructure (list of dictionaries) seems to be not
+    # an effective one. This can be converted as a combination of two lists.
+    # First list has the column names and second one has list of tuples. Each
+    # tuple is a single row.
+
     NumberOfColumns = len(TableList[0])
     ColumnNames = TableList[0].keys()
     ColumnNames.reverse()
