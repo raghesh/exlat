@@ -74,6 +74,7 @@ class ExportToLatex:
         TableString += "%s \\\\\n" %(ColumnName)
       ColumnNumber += 1
 
+    # FIXIT: If the string has the newline(\n) charecter latex compiler fails.
     # Create Rows
     for Record in TableList:
       TableString += "\\hline\n"
