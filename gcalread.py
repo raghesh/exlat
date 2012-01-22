@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import sys
+import exchange as E
 
 def getListofDictionary(List, EventName):
   """Get a list of dictionaries. Each dictionary
@@ -22,7 +23,15 @@ def getListofDictionary(List, EventName):
     KeyIndex = Start + 1
 
     for Entry in List[Start:End:2]:
-      Dict[Entry] = List[KeyIndex]
+      # FIXIT: If the event in the calender is not part of a series of events
+      # the dates strings are different. That is if the event is planned as an
+      # extra event
+      if Entry == 'DTSTART;TZID=Asia/Calcutta':
+        Dict['Start Date'] = List[KeyIndex]
+      if Entry == 'DTEND;TZID=Asia/Calcutta':
+        Dict['End Date'] = List[KeyIndex]
+      if Entry == 'DESCRIPTION':
+        Dict['Topic'] = List[KeyIndex]
       KeyIndex += 2
     EventsList.append(Dict)
 
@@ -38,4 +47,14 @@ F = open(ICSFile)
 Content = F.read()
 NewContent = Content.replace('\r\n', ':')
 List = NewContent.split(':')
-print getListofDictionary(List, SummaryString)
+ListOfDict = getListofDictionary(List, SummaryString)
+TableList = ListOfDict
+print TableList
+
+Obj = E.ExportToLatex()
+TableString = Obj.createLatexTable(TableList)
+Obj.createOutputString(TableString)
+Obj.createLatexFile()
+
+#Clearing Memory
+del Obj
