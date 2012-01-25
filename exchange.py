@@ -97,25 +97,27 @@ def testExportToLatex():
                      "\\begin{document}\n"\
                      "Hello World\n"\
                      "\\end{document}"
-  Obj = ExportToLatex()
-  Obj.createOutputString("Hello World")
-  assert Obj.getOutputString() == TestOutputString, \
+  Obj1 = ExportToLatex()
+  Obj1.createOutputString("Hello World")
+  assert Obj1.getOutputString() == TestOutputString, \
          "Invalid output string is created"
-  Obj.createLatexFile()
+  Obj1.createLatexFile()
   # Test Case 2
+  Obj2 = ExportToLatex()
   TableList = [{'Age': '5', 'Name': 'Jack'}, {'Age': '6', 'Name': 'John'}]
-  TableString = Obj.createLatexTable(TableList)
+  TableString = Obj2.createLatexTable(TableList)
   assert TableString == "\\begin{tabular}{|l|l|}\n"\
                         "\\hline\nName &Age \\\\\n"\
                         "\\hline\nJack &5 \\\\\n"\
                         "\\hline\nJohn &6 \\\\\n"\
                         "\\hline\n"\
                         "\\end{tabular}"
-  Obj.createOutputString(TableString)
-  Obj.createLatexFile()
+  Obj2.createOutputString(TableString)
+  Obj2.createLatexFile()
 
   # Clearing Memory
-  del Obj
+  del Obj1
+  del Obj2
 
 if __name__ == '__main__':
   testExportToLatex()
