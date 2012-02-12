@@ -39,7 +39,7 @@ def getListofDictionary(List, EventName):
 
 if len(sys.argv) != 3:
   print "Usage: ./gcalread.py <.ics file> <SUMMARY String>"
-  sys.exit(0)
+  sys.exit(1)
 
 ICSFile = sys.argv[1]
 SummaryString = sys.argv[2]
