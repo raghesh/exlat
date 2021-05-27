@@ -18,6 +18,7 @@
 ################################################################################
 
 #!/usr/bin/env python
+import os
 import sys
 import exchange as E
 
