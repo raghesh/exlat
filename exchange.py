@@ -17,6 +17,10 @@
 # along with ExLat.  If not, see <http://www.gnu.org/licenses/>.               #
 ################################################################################
 
+import os
+import sys
+
+# create class ExportToLatex:
 class ExportToLatex:
   """This class implements the interface required to export different formats
      to Latex. The input is a template file which is preferred by the user. The
